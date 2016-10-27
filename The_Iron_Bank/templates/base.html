@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Red-It(official){% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen" title="no title">
+    <style media="screen">
+      body {
+        background-color: lightgrey; font-family:sans-serif;
+        }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <p><h3 style="text-align:; color:blue; float:right;">{{ request.user }}</h3></p>
+
+    {% block content %}
+    {% endblock %}
+
+    </div>
+
+  </body>
+</html>
