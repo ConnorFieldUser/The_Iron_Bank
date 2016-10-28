@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from bank_records_app.views import UserCreateView
+from bank_records_app.views import UserCreateView, IndexView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('^', include('django.contrib.auth.urls')),
+    url(r'^$', IndexView.as_view(), name="operation_create_view"),
     url(r'^create_user/$', UserCreateView.as_view(), name="user_create_view"),
 
 ]
