@@ -36,21 +36,14 @@ def create_user_profile(**kwargs):
 
 
 DEBIT_OR_DEPOSIT = [
-    ('+', 'deposit'),
-    ('-', 'withdraw'),
+    ('+', 'Deposit'),
+    ('-', 'Withdraw'),
 ]
 
 
 class Transaction(models.Model):
+    user = models.ForeignKey('auth.User')
     account = models.ForeignKey(Account)
     debit_or_deposit = models.CharField(max_length=1, choices=DEBIT_OR_DEPOSIT)
     amount = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
-
-
-# class Deposit(models.Model):
-#     account = models.ForeignKey(Account)
-#
-#
-# class Withdraw(models.Model):
-#     account = models.ForeignKey(Account)

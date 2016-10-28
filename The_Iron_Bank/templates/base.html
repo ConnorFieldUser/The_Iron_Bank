@@ -9,6 +9,7 @@
       body {
         background-color: lightgrey; font-family:sans-serif;
         }
+
     </style>
   </head>
 
@@ -16,7 +17,7 @@
 
     <div class="container">
 
-      <p><h3 style="text-align:; color:blue; float:right;">{{ request.user }}</h3></p>
+      <p><h3>{{ request.user }}</h3></p>
 
     {% block content %}
     {% endblock %}

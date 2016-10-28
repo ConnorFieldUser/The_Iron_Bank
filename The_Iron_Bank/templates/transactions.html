@@ -2,26 +2,38 @@
 {% block content %}
 
 
-{% for transaction in object_list %}
+<h2>
+  Balance: {{ request.user.account.get_balance }}
+</h2>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    {% for transaction in object_list %}
 
-    <h3 class="panel-title">{% if transaction.description %}
-      Reason for transaction:<br>{{ transaction.description }}</h3>{% endif %}
-  </div>
-    <div class="panel-body">
-      <p>{{ transaction.debit_or_deposit }}{{ transaction.amount }} = </p>
-    </div>
+
+
+      <h3 class="panel-title">
       </div>
+      <div class="panel-body">
+        <h4>{% if transaction.debit_or_deposit == '-' %}
+    <span style = "color: red;">{{ transaction.get_debit_or_deposit_display }}</span>:
+        {% elif transaction.debit_or_deposit == '+' %}
+    <span style = "color: green;">{{ transaction.get_debit_or_deposit_display }}</span>:
+        {% endif %}
+        {{ transaction.amount }}  <h6>{{ transaction.created }}</h6></h4>
+        <h4>{% if transaction.debit_or_deposit == '-' %}
+      <hr style="border-color: red;">
+        {% elif transaction.debit_or_deposit == '+' %}
+      <hr style="border-color: green;">
+        {% endif %}
+
+    </h3>
 
 
 
-{% endfor %}
+     {% endfor %}
 
-<p>
-  {{ account.get_balance }}
-  lololollol{{ request.user.account.get_balance }}
-</p>
+  </div>
+</div>
 
 {% endblock %}
