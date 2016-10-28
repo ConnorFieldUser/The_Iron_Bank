@@ -19,8 +19,8 @@ class Account(models.Model):
         if created:
             Account.objects.create(user=instance)
 
-        def __str__(self):
-            return self.username
+    def __str__(self):
+        return str(self.user)
 
 
 DEBIT_OR_DEPOSIT = [
@@ -33,6 +33,7 @@ class Transaction(models.Model):
     account = models.ForeignKey(Account)
     debit_or_deposit = models.CharField(max_length=1, choices=DEBIT_OR_DEPOSIT)
     amount = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
 
 
 # class Deposit(models.Model):

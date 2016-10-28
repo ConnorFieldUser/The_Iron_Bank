@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for transaction in object_list %}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+    </div>
+  <div class="panel-body">
+    <p>{{ transaction.num1 }} {{ transaction.operator }}  {{ transaction.num2 }} = {{ transaction.do_the_math }}</p>
+
+  </div>
+    </div>
+          {% endfor %}
+
+{% for transaction in object_list %}
+    {% if request.user == transaction.created_by %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+
+    <h3 class="panel-title">{% if transaction.description %}
+      Reason for transaction:<br>{{ transaction.description }}</h3>{% endif %}
+  </div>
+    <div class="panel-body">
+      <p>{{ transaction.num1 }} {{ transaction.operator }}  {{ transaction.num2 }} = {{ transaction.do_the_math }}</p>
+      <p style="color: orange"><br>
+        By: {{ transaction.created_by }}
+      </p>
+
+    </div>
+      </div>
+
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}
