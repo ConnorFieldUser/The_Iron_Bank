@@ -2,7 +2,8 @@
 {% block content %}
 
 
-{% for transaction in object_list %}
+
+{% for action in transaction %}
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -11,17 +12,14 @@
       Reason for transaction:<br>{{ transaction.description }}</h3>{% endif %}
   </div>
     <div class="panel-body">
-      <p>{{ transaction.debit_or_deposit }}{{ transaction.amount }} = </p>
+      <p>{{ transaction.debit_or_deposit }}{{ transaction.amount }} = {{ transaction.get_balance }}</p>
     </div>
       </div>
 
+      <p>
+        {{ account.get_balance }}
+      </p>
 
-
-{% endfor %}
-
-<p>
-  {{ account.get_balance }}
-  lololollol{{ request.user.account.get_balance }}
-</p>
+    {% endfor %}
 
 {% endblock %}

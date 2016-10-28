@@ -12,20 +12,32 @@ class Account(models.Model):
     user = models.OneToOneField('auth.User')
     created = models.DateTimeField(auto_now_add=True)
 
-    @receiver(post_save, sender='auth.User')
-    def create_user_profile(**kwargs):
-        created = kwargs.get('created')
-        instance = kwargs.get('instance')
-        if created:
-            Account.objects.create(user=instance)
+    @property
+    def get_balance(self):
+        account_transactions = Transaction.objects.all()
+        total = 0
+        for transaction in account_transactions:
+            if transaction.debit_or_deposit == '+':
+                total += transaction.amount
+            elif transaction.debit_or_deposit == '-':
+                total -= transaction.amount
+        return total
 
     def __str__(self):
         return str(self.user)
 
 
+@receiver(post_save, sender='auth.User')
+def create_user_profile(**kwargs):
+    created = kwargs.get('created')
+    instance = kwargs.get('instance')
+    if created:
+        Account.objects.create(user=instance)
+
+
 DEBIT_OR_DEPOSIT = [
-    ('deposit', '+'),
-    ('withdraw', '-'),
+    ('+', 'deposit'),
+    ('-', 'withdraw'),
 ]
 
 

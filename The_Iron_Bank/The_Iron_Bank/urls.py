@@ -23,5 +23,5 @@ urlpatterns = [
     url('^', include('django.contrib.auth.urls')),
     url(r'^$', IndexView.as_view(), name="operation_create_view"),
     url(r'^create_user/$', UserCreateView.as_view(), name="user_create_view"),
-    url(r'^transactions/$', TransactionView.as_view(), name="transactions"),
+    url(r'^transaction/$', TransactionView.as_view(), name="transaction"),
 ]
