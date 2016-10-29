@@ -14,7 +14,7 @@ class Account(models.Model):
 
     @property
     def get_balance(self):
-        account_transactions = Transaction.objects.all()
+        account_transactions = Transaction.objects.filter(user=self.user)
         total = 0
         for transaction in account_transactions:
             if transaction.debit_or_deposit == '+':
@@ -47,3 +47,6 @@ class Transaction(models.Model):
     debit_or_deposit = models.CharField(max_length=1, choices=DEBIT_OR_DEPOSIT)
     amount = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.user)

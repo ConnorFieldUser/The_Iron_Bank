@@ -27,7 +27,7 @@ class TransactionView(ListView):
     def get_queryset(self):
         return Transaction.objects.filter(user=self.request.user)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['transactions'] = Transaction.objects.filter(user=self.request.user)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['transactions'] = Transaction.objects.filter(user=self.request.user)
+        return context
