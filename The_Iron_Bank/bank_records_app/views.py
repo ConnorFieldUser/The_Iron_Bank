@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 
 from bank_records_app.serializers import TransactionSerializer
 
@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
+
 
 from bank_records_app.models import Transaction
 
@@ -24,6 +25,17 @@ class UserCreateView(CreateView):
 
 class IndexView(TemplateView):
         template_name = 'index.html'
+
+
+class TransactionCreateView(CreateView):
+    model = Transaction
+    success_url = "/transactions"
+    fields = ('amount', 'debit_or_deposit')
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class TransactionView(ListView):
@@ -64,3 +76,12 @@ class TransactionListCreateAPIView(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         return super().perform_create(serializer)
+
+
+class TransactionDetailAPIView(RetrieveAPIView):
+    # queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def get_queryset(self):
+        return Transaction.objects.filter(user=self.request.user)

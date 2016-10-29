@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from bank_records_app.views import UserCreateView, IndexView, TransactionView, TransactionListCreateAPIView
+from bank_records_app.views import UserCreateView, IndexView, TransactionView, TransactionListCreateAPIView, \
+                                   TransactionCreateView, TransactionDetailAPIView
 
 from rest_framework.authtoken.views import obtain_auth_token
 
@@ -28,6 +29,8 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name="operation_create_view"),
     url(r'^create_user/$', UserCreateView.as_view(), name="user_create_view"),
     url(r'^transactions/$', TransactionView.as_view(), name="transaction"),
+    url(r'^create_transaction/$', TransactionCreateView.as_view(), name="transaction_create_view"),
     # API URLs
-    url(r'^transaction_api/$', TransactionListCreateAPIView.as_view(), name="transaction_list_create_api_view"),
+    url(r'^transactions/$', TransactionListCreateAPIView.as_view(), name="transaction_list_create_api_view"),
+    url(r'^transaction/(?P<pk>\d+)/$', TransactionDetailAPIView.as_view(), name="transaction_detail_api_view")
 ]
