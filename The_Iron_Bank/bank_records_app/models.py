@@ -4,6 +4,10 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 
+from django.conf import settings
+from rest_framework.authtoken.models import Token
+
+
 # Create your models here.
 
 
@@ -35,6 +39,12 @@ def create_user_profile(**kwargs):
         Account.objects.create(user=instance)
 
 
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
+
+
 DEBIT_OR_DEPOSIT = [
     ('+', 'Deposit'),
     ('-', 'Withdraw'),
@@ -43,7 +53,6 @@ DEBIT_OR_DEPOSIT = [
 
 class Transaction(models.Model):
     user = models.ForeignKey('auth.User')
-    account = models.ForeignKey(Account)
     debit_or_deposit = models.CharField(max_length=1, choices=DEBIT_OR_DEPOSIT)
     amount = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)

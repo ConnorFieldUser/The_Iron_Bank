@@ -23,7 +23,7 @@ from bank_records_app.models import Transaction
 #         exclude = ('created_by',)
 
 
-class IngredientSerializer(serializers.ModelSerializer):
+class TransactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction

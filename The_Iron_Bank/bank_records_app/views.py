@@ -11,6 +11,8 @@ from django.views.generic.edit import CreateView
 
 from bank_records_app.models import Transaction
 
+from rest_framework.permissions import IsAuthenticated
+
 # Create your views here.
 
 
@@ -50,6 +52,15 @@ class TransactionView(ListView):
 #         return super().perform_create(serializer)
 
 
-class TransactionListAPIView(ListCreateAPIView):
-    queryset = Transaction.objects.all()
+class TransactionListCreateAPIView(ListCreateAPIView):
+    permission_classes = (IsAuthenticated, )
+    # queryset = Transaction.objects.all()
+
     serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        return Transaction.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        return super().perform_create(serializer)
