@@ -9,6 +9,16 @@
       body {
         background-color: #79aec8; font-family:sans-serif;
         }
+      .navbar-default {
+        background-color: #79aec8;
+        border-color: #79aec8;
+        }
+        .btn
+        {
+          background-color: #f5dd5d;
+          border-color: white;
+        }
+
 
     </style>
   </head>
@@ -16,6 +26,29 @@
   <body>
 
     <div class="container">
+
+
+    <nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <ul class="nav navbar-nav">
+
+    <li><a href="{% url 'index_view' %}"><button type="button" class="btn btn-default navbar-btn">Home</button></a></li>
+
+        {% if not request.user.is_authenticated %}
+    <li><a href="{% url 'login' %}"><button type="button" class="btn btn-default navbar-btn">Log In</button></a></li>
+        {% else %}
+    <li><a href="{% url 'login' %}"><button type="button" class="btn btn-default navbar-btn">Change Account</button></a></li>
+        {% endif %}
+
+    <li><a href="{% url 'transactions' %}"><button type="button" class="btn btn-default navbar-btn">Account History</button></a></li>
+    <li><a href="{% url 'logout' %}?next={% url 'index_view' %}"><button style="background-color: #72B73A;" type="button" class="btn btn-default navbar-btn">Log out</button></a></li>
+    <li><a href="{% url 'transaction_create_view' %}"><button style="background-color: #ba2121"type="button" class="btn btn-default navbar-btn">New Transaction</button></a></li>
+
+  </ul>
+  </div>
+</nav>
+
+
 
       <p><h3>{{ request.user }}</h3></p>
 

@@ -9,9 +9,11 @@
 <div class="panel panel-default">
   <div class="panel-heading">
 
+    {% if not object_list %}
+    <p>No records found.</p>
+    {% endif %}
+
     {% for transaction in object_list %}
-
-
 
       <h3 class="panel-title">
       </div>
@@ -30,9 +32,7 @@
 
     </h3>
 
-
-
-     {% endfor %}
+{% endfor %}
 
   </div>
 </div>
