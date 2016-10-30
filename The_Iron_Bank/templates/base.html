@@ -49,8 +49,15 @@
 </nav>
 
 
+{% if not request.user.is_authenticated %}
+<p>
+  <h3>Welcome! You are not logged in. <a style="color: lightgrey;" href="{% url 'login' %}">Log in</a>? Or <a style="color: lightgrey;" href="{% url 'user_create_view' %}">create an account?</a></h3>
+</p>
+{% else %}
+      <p> <h3>Welcome, {{ request.user }}</h3></p>
+{% endif %}
+<br>
 
-      <p><h3>{{ request.user }}</h3></p>
 
     {% block content %}
     {% endblock %}
