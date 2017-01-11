@@ -25,7 +25,7 @@ SECRET_KEY = 'a*30z-#b(^n!5rjc7dyeg+%xr6!!m3i*lp39f7gkmju4ng=w#9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['money-stash.herokuapp.com', 'localhost']
 
 
 # Application definition
