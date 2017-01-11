@@ -75,6 +75,7 @@ WSGI_APPLICATION = 'The_Iron_Bank.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+import dj_database_url
 
 DATABASES = {
     'default': {
@@ -83,6 +84,10 @@ DATABASES = {
     }
 }
 
+heroku_database = dj_database_url.config()
+
+if heroku_database:
+    DATABASES['default'] = heroku_database
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
