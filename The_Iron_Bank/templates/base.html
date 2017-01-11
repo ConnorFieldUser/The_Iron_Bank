@@ -3,14 +3,19 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}MoneyHolders{% endblock %}</title>
+    <title>{% block title %}MoneyStash{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen" title="no title">
     <style media="screen">
       body {
-        background-color: #79aec8; font-family:sans-serif;
+        background-color: black; font-family:sans-serif;
+        background-image:url('/static/images/GOLD.jpg');
+
+
+        background-size:cover;
         }
       .navbar-default {
         background-color: #79aec8;
+        background-image:
         border-color: #79aec8;
         }
         .btn
@@ -18,12 +23,34 @@
           background-color: #f5dd5d;
           border-color: white;
         }
+      /*body
+        {
+        background-image:url('{{ STATIC_URL }}images/GOLD.jpg');
+        background-image:"{% static 'images/GOLD.jpg' %}"
+        background-repeat:no-repeat;
+        background-size:100%;
+        }*/
+        /*body {
+            background: white url("static/images/GOLD.jpg") no-repeat right bottom;
+        }*/
+        /*html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
-
+img {
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+}*/
     </style>
   </head>
 
   <body>
+    <!-- <img src="static/images/GOLD.jpg" /> -->
 
     <div class="container">
 
@@ -36,14 +63,18 @@
 
         {% if not request.user.is_authenticated %}
     <li><a href="{% url 'login' %}"><button type="button" class="btn btn-default navbar-btn">Log In</button></a></li>
+    <li><a href="{% url 'user_create_view' %}"><button type="button" class="btn btn-default navbar-btn">Create Account</button></a></li>
         {% else %}
     <li><a href="{% url 'login' %}"><button type="button" class="btn btn-default navbar-btn">Change Account</button></a></li>
         {% endif %}
 
+    {% if request.user.is_authenticated %}
     <li><a href="{% url 'transactions' %}"><button type="button" class="btn btn-default navbar-btn">Account History</button></a></li>
     <li><a href="{% url 'logout' %}?next={% url 'index_view' %}"><button style="background-color: #72B73A;" type="button" class="btn btn-default navbar-btn">Log out</button></a></li>
     <li><a href="{% url 'user_transaction_create_view' %}"><button style="background-color: #ba2121"type="button" class="btn btn-default navbar-btn">New Transaction</button></a></li>
-    <h1>💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰</h1>
+    {% endif %}
+
+    <!-- <h1>💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰</h1> -->
 
   </ul>
   </div>
@@ -52,12 +83,13 @@
 
 {% if not request.user.is_authenticated %}
 <p>
-  <h3>Welcome! You are not logged in. <a style="color: lightgrey;" href="{% url 'login' %}">Log in</a>? Or <a style="color: lightgrey;" href="{% url 'user_create_view' %}">create an account?</a></h3>
+  <h3 style="color:white">Welcome! You are not logged in. <a style="color: lightgrey;" href="{% url 'login' %}">Log in</a>? Or <a style="color: lightgrey;" href="{% url 'user_create_view' %}">create an account?</a></h3>
 </p>
 {% else %}
-      <p> <h3>Welcome, {{ request.user }}</h3></p>
+      <p> <h3 style="color:white">Welcome, {{ request.user }}</h3></p>
 {% endif %}
-<br>
+<hr><br>
+
 
 
     {% block content %}

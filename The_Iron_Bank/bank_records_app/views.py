@@ -29,7 +29,7 @@ class IndexView(TemplateView):
 
 class TransactionCreateView(CreateView):
     model = Transaction
-    success_url = "/transactions"
+    success_url = "/user_transactions"
     fields = ('amount', 'debit_or_deposit')
 
     def form_valid(self, form):
