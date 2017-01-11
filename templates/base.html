@@ -51,6 +51,9 @@
     <li><a href="{% url 'transactions' %}"><button type="button" class="btn btn-default navbar-btn">Account History</button></a></li>
     <li><a href="{% url 'logout' %}?next={% url 'index_view' %}"><button style="background-color: #72B73A;" type="button" class="btn btn-default navbar-btn">Log out</button></a></li>
     <li><a href="{% url 'user_transaction_create_view' %}"><button style="background-color: #ba2121"type="button" class="btn btn-default navbar-btn">New Transaction</button></a></li>
+    <li><a href="{% url 'transaction_list_create_api_view' %}"><button style="background-color: #ba2121"type="button" class="btn btn-default navbar-btn">DRF</button></a></li>
+
+
     {% endif %}
 
     <!-- <h1>💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰💰</h1> -->
